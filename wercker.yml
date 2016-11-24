@@ -1,0 +1,17 @@
+box:
+  id: quay.io/sharpershape/build-sbt
+  registry: quay.io
+
+build:
+  steps:
+    - sharpershape/cache:
+      name: Restore dependencies from cache
+      action: restore
+
+    - script:
+      name: Build
+      code: sbt -Dsbt.log.noformat=true clean coverage test coverageReport
+
+    - sharpershape/cache:
+      name: Store dependencies to cache
+      action: store
