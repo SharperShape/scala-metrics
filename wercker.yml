@@ -5,13 +5,13 @@ box:
 build:
   steps:
     - sharpershape/cache:
-      name: Restore dependencies from cache
+      name: restore dependencies from cache
       action: restore
 
     - script:
-      name: Build
+      name: test
       code: sbt -Dsbt.log.noformat=true clean coverage test coverageReport
 
     - sharpershape/cache:
-      name: Store dependencies to cache
+      name: store dependencies to cache
       action: store
