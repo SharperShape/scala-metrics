@@ -15,3 +15,37 @@ build:
     - sharpershape/cache:
       name: store dependencies to cache
       action: store
+
+release:
+  steps:
+    - script:
+      name: import pgp key
+      code: |
+        echo -e ${PGP_KEY} | gpg --import
+
+    - script:
+      name: create plugins file
+      code: |
+        mkdir -p ~/.sbt/0.13
+        cat > ~/.sbt/0.13/global.sbt <<END
+        credentials += Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", "${SONATYPE_USER}", "${SONATYPE_PASSWORD}")
+        END
+
+        mkdir -p ~/.sbt/0.13/plugins
+        cat > ~/.sbt/0.13/plugins/build.sbt <<END
+        addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
+
+        addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
+        END
+
+    - sharpershape/cache:
+      name: restore dependencies from cache
+      action: restore
+
+    - script:
+      name: publish
+      code: echo ${PGP_PASSPHRASE} | sbt -Dsbt.log.noformat=true clean compile publishSigned
+
+    - sharpershape/cache:
+      name: store dependencies to cache
+      action: store
