@@ -4,6 +4,8 @@ import sbt.Keys._
 object ProjectBuild extends Build {
   val akkaVersion = sys.props.getOrElse("akka.version", default = "2.4.9")
 
+  val sharperShapeScalastyleConfigUrl = Some(new URL("https://raw.githubusercontent.com/SharperShape/code-styles/master/scalastyle-config.xml"))
+
   lazy val root = (project in file(".")).settings(
     pomExtra in Global := {
       <url>https://github.com/SharperShape/scala-metrics</url>

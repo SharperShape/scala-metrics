@@ -18,7 +18,7 @@ coverageMinimum := 95
     
 coverageFailOnMinimum := true
 
-scalastyleConfigUrl in Compile := Some(new URL("https://raw.githubusercontent.com/SharperShape/code-styles/master/scalastyle-config.xml"))
+scalastyleConfigUrl in Compile := sharperShapeScalastyleConfigUrl
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion % "provided"

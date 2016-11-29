@@ -10,7 +10,7 @@ build:
 
     - script:
       name: test
-      code: sbt -Dsbt.log.noformat=true clean coverage test coverageReport
+      code: sbt -Dsbt.log.noformat=true clean scalastyle coverage test coverageReport
 
     - sharpershape/cache:
       name: store dependencies to cache
