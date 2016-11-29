@@ -2,7 +2,7 @@ name := "scala-metrics"
 
 organization := "com.sharpershape"
 
-version := "1.0-SNAPSHOT"
+version := "1.0"
 
 scalaVersion := "2.11.8"
 
@@ -18,14 +18,14 @@ coverageMinimum := 95
     
 coverageFailOnMinimum := true
 
-scalastyleConfigUrl in Compile := Some(new URL("https://raw.githubusercontent.com/SharperShape/code-styles/master/scalastyle-config.xml"))
+scalastyleConfigUrl in Compile := sharperShapeScalastyleConfigUrl
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % sys.props.getOrElse("akka.version", default = "2.4.9") % "provided"
+  "com.typesafe.akka" %% "akka-actor" % akkaVersion % "provided"
 )
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.6" % "test",
   "org.scalamock" %% "scalamock-scalatest-support" % "3.2.2" % "test",
-  "com.typesafe.akka" %% "akka-testkit" % sys.props.getOrElse("akka.version", default = "2.4.9") % "test"
+  "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test"
 )
